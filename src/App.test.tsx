@@ -2,21 +2,23 @@ import React from 'react'
 import ReactDOM from 'react-dom'
 import { fireEvent, render, wait, waitForElement } from 'react-testing-library'
 
+import { Election } from './config/types'
+
 import electionSample from './data/electionSample.json'
 
 import App, { electionKey, mergeWithDefaults } from './App'
 
-const electionSampleAsString = JSON.stringify(mergeWithDefaults(electionSample))
+const electionSampleAsString = JSON.stringify(
+  mergeWithDefaults(electionSample as Election)
+)
 
-const Q1 = electionSample.contests[0]!
-const Q1Candidate1 = Q1.candidates[0]!.name
-const Q1Candidate2 = Q1.candidates[1]!.name
-const Q1Candidate3 = Q1.candidates[2]!.name
+const Q1 = electionSample.contests[0]
+const Q1Candidate1 = Q1.candidates![0].name
+const Q1Candidate2 = Q1.candidates![1].name
 
 const Q2 = electionSample.contests[1]!
-const Q2Candidate1 = Q2.candidates[0]!.name
-const Q2Candidate2 = Q2.candidates[1]!.name
-const Q2Candidate3 = Q2.candidates[2]!.name
+const Q2Candidate1 = Q2.candidates![0].name
+const Q2Candidate3 = Q2.candidates![2]!.name
 
 beforeEach(() => {
   window.localStorage.clear()

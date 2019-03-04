@@ -1,9 +1,9 @@
 import React from 'react'
 import styled from 'styled-components'
 import {
-  Contest,
   InputEvent,
   OptionalCandidate,
+  SeatContest as SeatContestInterface,
   UpdateVoteFunction,
 } from '../config/types'
 
@@ -102,7 +102,7 @@ const WriteInCandidateInput = styled.input.attrs({
 `
 
 interface Props {
-  contest: Contest
+  contest: SeatContestInterface
   vote: OptionalCandidate
   updateVote: UpdateVoteFunction
 }
@@ -224,9 +224,9 @@ class SeatContest extends React.Component<Props, State> {
       <React.Fragment>
         <FieldSet>
           <Legend>
-            {contest.section && (
+            {contest.district && (
               <ContestSection>
-                {contest.section}
+                {contest.district}
                 <span className="visually-hidden">.</span>
               </ContestSection>
             )}

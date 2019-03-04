@@ -2,11 +2,13 @@ import { axe } from 'jest-axe'
 import React from 'react'
 import { fireEvent, render, waitForElement } from 'react-testing-library'
 
+import { Election } from '../config/types'
+
 import electionSample from '../data/electionSample.json'
 
-import App, { electionKey, mergeWithDefaults } from '../App'
+import { mergeWithDefaults } from '../App'
 
-const goodElectionFile = mergeWithDefaults(electionSample)
+const goodElectionFile = mergeWithDefaults(electionSample as Election)
 
 import UploadConfig from './UploadConfig'
 

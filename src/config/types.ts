@@ -17,16 +17,6 @@ export interface Candidate {
 }
 export type OptionalCandidate = Candidate | undefined
 export type VoteDict = Dictionary<OptionalCandidate>
-export interface Contest {
-  readonly id: string
-  readonly title: string
-  readonly description?: string
-  readonly section?: string
-  readonly seats?: number
-  readonly type: string // TODO: convert to enum: VotingMethod { 'plurality' | 'approval' }
-  readonly candidates?: Candidate[]
-  readonly writeIns?: boolean
-}
 export interface BMDConfig {
   readonly requireActivation?: boolean
   readonly showHelpPage?: boolean
@@ -35,14 +25,30 @@ export interface BMDConfig {
 export interface ElectionDefaults {
   readonly bmdConfig: BMDConfig
 }
+export interface Contest {
+  readonly id: string
+  readonly title: string
+  readonly type: string
+}
+export interface SeatContest extends Contest {
+  readonly type: 'plurality'
+  readonly allowWriteIns: boolean
+  readonly candidates: Candidate[]
+  readonly seats: number
+  readonly district: string
+}
+export interface ApprovalContest extends Contest {
+  readonly type: 'boolean'
+  readonly description: string
+}
 export interface Election {
-  readonly contests: Contest[]
+  readonly bmdConfig?: BMDConfig
+  readonly contests: Array<SeatContest | ApprovalContest>
   readonly county: string
   readonly date: string
   readonly seal: string
   readonly state: string
   readonly title: string
-  readonly bmdConfig?: BMDConfig
 }
 export type OptionalElection = Election | undefined
 export type UpdateVoteFunction = (

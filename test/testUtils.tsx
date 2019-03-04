@@ -3,6 +3,8 @@ import React from 'react'
 import { Router } from 'react-router-dom'
 import { render as testRender } from 'react-testing-library'
 
+import { Election } from '../src/config/types'
+
 import electionSample from '../src/data/electionSample.json'
 
 import { mergeWithDefaults } from '../src/App'
@@ -24,7 +26,7 @@ export function render(
     ...testRender(
       <BallotContext.Provider
         value={{
-          election: mergeWithDefaults(election),
+          election: mergeWithDefaults(election as Election),
           resetBallot,
           setBallotKey,
           updateVote,
