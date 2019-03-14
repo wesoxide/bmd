@@ -142,7 +142,6 @@ class SummaryPage extends React.Component<RouteComponentProps> {
                 <div
                   className="seal"
                   dangerouslySetInnerHTML={{ __html: seal }}
-                  aria-label="Election Seal."
                 />
                 <Prose className="ballot-header-content">
                   <h2>
