@@ -9,6 +9,7 @@ import ButtonBar from '../components/ButtonBar'
 import CandidateContest from '../components/CandidateContest'
 import LinkButton from '../components/LinkButton'
 import Main, { MainChild } from '../components/Main'
+import Screen from '../components/Screen'
 import Text from '../components/Typography'
 
 interface ContestParams {
@@ -32,7 +33,7 @@ const ContestPage = (props: Props) => {
   // - confirm intent when navigating away without selecting a candidate
 
   return (
-    <React.Fragment>
+    <Screen focusOnMount={false}>
       {contest ? (
         contest.type === 'candidate' && (
           <CandidateContest
@@ -92,7 +93,7 @@ const ContestPage = (props: Props) => {
         {showHelpPage && <LinkButton to="/help">Help</LinkButton>}
         {showSettingsPage && <LinkButton to="/settings">Settings</LinkButton>}
       </ButtonBar>
-    </React.Fragment>
+    </Screen>
   )
 }
 

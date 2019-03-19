@@ -11,6 +11,7 @@ import LinkButton from '../components/LinkButton'
 import Main, { MainChild } from '../components/Main'
 import Modal from '../components/Modal'
 import Prose from '../components/Prose'
+import Screen from '../components/Screen'
 import { Text } from '../components/Typography'
 import BallotContext from '../contexts/ballotContext'
 
@@ -126,7 +127,7 @@ class SummaryPage extends React.Component<RouteComponentProps> {
   public render() {
     const { seal, title, county, state, date } = this.context.election
     return (
-      <React.Fragment>
+      <Screen>
         <Main>
           <MainChild>
             <Prose>
@@ -242,7 +243,7 @@ class SummaryPage extends React.Component<RouteComponentProps> {
             </>
           }
         />
-      </React.Fragment>
+      </Screen>
     )
   }
 }

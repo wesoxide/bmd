@@ -8,6 +8,7 @@ import LinkButton from '../components/LinkButton'
 import Main, { MainChild } from '../components/Main'
 import Modal from '../components/Modal'
 import Prose from '../components/Prose'
+import Screen from '../components/Screen'
 import { Text } from '../components/Typography'
 
 const SettingsPage = () => {
@@ -20,7 +21,7 @@ const SettingsPage = () => {
     Object.keys(votes).length === 0 ? resetBallot() : setResetBallotAlert(true)
   }
   return (
-    <>
+    <Screen>
       <Main>
         <MainChild>
           <Prose>
@@ -54,7 +55,7 @@ const SettingsPage = () => {
           </>
         }
       />
-    </>
+    </Screen>
   )
 }
 

@@ -25,6 +25,10 @@ legend {
   display: block;
 }
 
+:focus {
+  background: pink !important;
+}
+
 :link,
 :visited {
   color: rgb(0, 0, 238);
@@ -33,8 +37,7 @@ legend {
 /* Foundational */
 html,
 body,
-#root,
-.clickContainer {
+#root {
   height: 100%;
   overflow: hidden;
 }

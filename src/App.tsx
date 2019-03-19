@@ -60,10 +60,6 @@ const initialState = {
   votes: {},
 }
 
-// a React reference to the div that we want to click on for voiceover on every screen
-// this will be used in the Root component, and referenced in the App when location changes.
-const clickContainerRef = React.createRef<HTMLDivElement>()
-
 class App extends React.Component<RouteComponentProps, State> {
   public state: State = initialState
 
@@ -83,18 +79,6 @@ class App extends React.Component<RouteComponentProps, State> {
       })
     }
     Mousetrap.bind(removeElectionShortcuts, this.reset)
-
-    // setting a delay of 50ms does the following:
-    // - the click means that chromevox will now read the whole page
-    // - thanks to giving it 50ms of delay, any component that is autoFocused will get autofocused first
-    //   which means that when the user presses tab, it goes to the item that was previously autoFocused.
-    // - setting this to 0 is too short to get the focus to happen.
-    // - setting this to 500 (for example) causes chromevox to start speaking the focused item, which is not what we want.
-    this.props.history.listen(() => {
-      window.setTimeout(() => {
-        clickContainerRef.current!.click()
-      }, 50)
-    })
   }
 
   public componentWillUnount = /* istanbul ignore next */ () => {
@@ -160,11 +144,9 @@ class App extends React.Component<RouteComponentProps, State> {
 }
 
 const Root = () => (
-  <div className="clickContainer" ref={clickContainerRef}>
-    <BrowserRouter>
-      <Route path="/" component={App} />
-    </BrowserRouter>
-  </div>
+  <BrowserRouter>
+    <Route path="/" component={App} />
+  </BrowserRouter>
 )
 
 export default Root

@@ -4,10 +4,11 @@ import ButtonBar from '../components/ButtonBar'
 import LinkButton from '../components/LinkButton'
 import Main, { MainChild } from '../components/Main'
 import Prose from '../components/Prose'
+import Screen from '../components/Screen'
 
 const HelpPage = () => {
   return (
-    <>
+    <Screen>
       <Main>
         <MainChild>
           <Prose>
@@ -20,7 +21,7 @@ const HelpPage = () => {
         <div />
         <LinkButton goBack>Back</LinkButton>
       </ButtonBar>
-    </>
+    </Screen>
   )
 }
 

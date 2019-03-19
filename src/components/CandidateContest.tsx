@@ -22,7 +22,13 @@ import { Text } from './Typography'
 
 const tabletMinWidth = 768
 
-const ContestSection = styled.small`
+const Contest = styled.div`
+  height: 100%;
+  display: flex;
+  // flex-direction: column;
+`
+const ContestSection = styled.div`
+  font-size: 0.85rem;
   font-weight: 600;
   text-transform: uppercase;
 `
@@ -155,10 +161,11 @@ const Choice = styled('label')<{ isSelected: boolean }>`
     }
   }
 `
-const ChoiceInput = styled.input.attrs({
-  type: 'checkbox',
-})`
-  margin-right: 0.5rem;
+const ChoiceInput = styled.input`
+  top: 0;
+  left: 0;
+  height: 100%;
+  width: 3rem;
 `
 
 const WriteInCandidateForm = styled.div`
@@ -210,18 +217,15 @@ const initialState = {
 }
 
 class CandidateContest extends React.Component<Props, State> {
-  private keyboard: React.RefObject<Keyboard>
-  private contestChoices: React.RefObject<HTMLDivElement>
-  constructor(props: Props) {
-    super(props)
-    this.state = initialState
-    this.keyboard = React.createRef()
-    this.contestChoices = React.createRef()
-  }
+  public candidateContest = React.createRef<HTMLDivElement>()
+  public keyboard = React.createRef<Keyboard>()
+  public contestChoices = React.createRef<HTMLDivElement>()
+  public state: State = initialState
 
   public componentDidMount() {
     this.updateContestChoicesScrollStates()
     window.addEventListener('resize', this.updateContestChoicesScrollStates)
+    this.candidateContest.current!.focus()
   }
 
   public componentDidUpdate(prevProps: Props) {
@@ -376,17 +380,15 @@ class CandidateContest extends React.Component<Props, State> {
     } = this.state
     const maxWriteInCandidateLength = 40
     return (
-      <React.Fragment>
+      <Contest ref={this.candidateContest} tabIndex={-1}>
         <FieldSet>
           <Legend isScrollable={isScrollable}>
-            {contest.section && (
-              <ContestSection>
-                {contest.section}
-                <span className="visually-hidden">.</span>
-              </ContestSection>
-            )}
             <Prose>
               <h1>
+                <ContestSection>
+                  {contest.section}
+                  <span className="visually-hidden">,</span>
+                </ContestSection>
                 {contest.title}
                 <span className="visually-hidden">.</span>
               </h1>
@@ -419,6 +421,7 @@ class CandidateContest extends React.Component<Props, State> {
                       onClick={handleDisabledClick}
                     >
                       <ChoiceInput
+                        type="checkbox"
                         autoFocus={isChecked || (index === 0 && !vote)}
                         id={candidate.id}
                         name={contest.id}
@@ -433,6 +436,7 @@ class CandidateContest extends React.Component<Props, State> {
                         <span className="visually-hidden">,</span>
                         <br />
                         {candidate.party}
+                        <span className="visually-hidden">.</span>
                       </Prose>
                     </Choice>
                   )
@@ -582,10 +586,7 @@ class CandidateContest extends React.Component<Props, State> {
                       '{space} {bksp}',
                     ],
                   }}
-                  display={{
-                    '{bksp}': '⌫ delete',
-                    '{space}': 'space',
-                  }}
+                  display={{ '{bksp}': '⌫ delete', '{space}': 'space' }}
                   mergeDisplay
                   disableCaretPositioning
                   maxLength={maxWriteInCandidateLength}
@@ -611,7 +612,7 @@ class CandidateContest extends React.Component<Props, State> {
             </>
           }
         />
-      </React.Fragment>
+      </Contest>
     )
   }
 }
